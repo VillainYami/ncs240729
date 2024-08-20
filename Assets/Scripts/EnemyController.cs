@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public ParticleSystem pts;
+
     public float speed;
     public bool vertical;
     public float changeTime = 3.0f;
@@ -71,6 +73,8 @@ public class EnemyController : MonoBehaviour
     {
         broken = false;
         rigi2D.simulated = false;
+        //pts.Stop();
+        Destroy(pts.gameObject);
         animator.SetTrigger("Fixed");
     }
 }
