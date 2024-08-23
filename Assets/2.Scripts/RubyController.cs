@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class RubyController : MonoBehaviour
 {
-    float speed = 23.0f;
-    public int maxHealth = 5;
-    int currentHealth;
+    #region public
+    
+    [HideInInspector]
     public int health { get { return currentHealth; } }
+    [HideInInspector]
+    public int maxHealth = 5;
+
     public GameObject projectilePrefab;
     public GameObject hitEffect;
-
     public float timeInvincible = 2.0f;
+    public float speed = 23.0f;
+    #endregion
+
+    #region private
+
+    int currentHealth;
     bool isInvincible;
     float invincibleTimer;
 
     Rigidbody2D rigi2D;
     Animator animator;
 
-
     Vector2 lookDirection = new Vector2(1, 0);
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +40,9 @@ public class RubyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float atktime = Time.deltaTime;
+
+        #region 움직이는 스크립팅(애니메이션 포함)
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
 
@@ -57,13 +68,44 @@ public class RubyController : MonoBehaviour
             if (invincibleTimer < 0)
                 isInvincible = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.C))
+        #endregion
+        #region 공격
+#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
+        if (Input.GetKey(KeyCode.C))
         {
             Launch();
         }
-    }
 
+#else
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+           Launch();
+        }
+#endif
+        #endregion
+
+        NPCCheck();
+    }
+    #region NPC Check
+    void NPCCheck()
+    {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(
+                rigi2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
+            if (hit.collider != null)
+            {
+                NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+                if (character != null)
+                {
+                    character.DisplayDialog();
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region HP
     public void ChangeHealth(int amount)
     {
         if (amount < 0)
@@ -80,7 +122,9 @@ public class RubyController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth/(float)maxHealth);
     }
+    #endregion
 
+    #region 공격
     void Launch()
     {
         GameObject projectileObject = Instantiate(projectilePrefab,
@@ -92,4 +136,6 @@ public class RubyController : MonoBehaviour
 
         animator.SetTrigger("Launch");
     }
+    #endregion
+
 }

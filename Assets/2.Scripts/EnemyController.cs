@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    #region public
     public ParticleSystem pts;
 
     public float speed;
     public bool vertical;
     public float changeTime = 3.0f;
-
     public GameObject fixedEffect;
+    #endregion
+
+    #region private
     Rigidbody2D rigi2D;
     float timer;
     int direction = 1;
     Animator animator;
     bool broken;
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +64,7 @@ public class EnemyController : MonoBehaviour
         rigi2D.MovePosition(position);
     }
 
+    //루비에게 닿을경우 데미지 입히는 코드
     void OnCollisionEnter2D(Collision2D collision)
     {
         RubyController ruby = 
@@ -70,6 +75,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    //로봇 고쳐지는 애니메이션
     public void Fix()
     {
         broken = false;
