@@ -5,12 +5,17 @@ using UnityEngine;
 public class RubyController : MonoBehaviour
 {
     #region public
-    
+    [HideInInspector]
+    public const int GOAL_FIXED_ROBOT = 3;
     [HideInInspector]
     public int health { get { return currentHealth; } }
     [HideInInspector]
     public int maxHealth = 5;
+    //[HideInInspector]
+    //public int FixedRobotCount { get { return fixedRobot; } set { fixedRobot = value; } }
 
+    public AudioClip[] audioclip;
+    public AudioSource audioSource;
     public GameObject projectilePrefab;
     public GameObject hitEffect;
     public float timeInvincible = 2.0f;
@@ -25,8 +30,10 @@ public class RubyController : MonoBehaviour
 
     Rigidbody2D rigi2D;
     Animator animator;
-
     Vector2 lookDirection = new Vector2(1, 0);
+
+    
+    int fixedRobot;
     #endregion
 
     // Start is called before the first frame update
@@ -35,6 +42,8 @@ public class RubyController : MonoBehaviour
         rigi2D = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -70,22 +79,41 @@ public class RubyController : MonoBehaviour
         }
         #endregion
         #region 공격
-#if (UNITY_EDITOR || UNITY_STANDALONE_WIN)
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             Launch();
         }
-
-#else
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-           Launch();
-        }
-#endif
         #endregion
 
         NPCCheck();
     }
+
+    #region 퀘스트관련
+    public void TellMeFixed()
+    {
+        fixedRobot++;
+        
+    }
+
+    public bool IsQuestComplete()
+    {
+        bool val = false;
+        if (fixedRobot == GOAL_FIXED_ROBOT)
+        {
+            val = true;
+            PlaySound(audioclip[3]);
+        }
+        return val;
+    }
+    #endregion
+
+    #region 오디오
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
+    #endregion
+
     #region NPC Check
     void NPCCheck()
     {
@@ -95,10 +123,14 @@ public class RubyController : MonoBehaviour
                 rigi2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
             if (hit.collider != null)
             {
-                NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
-                if (character != null)
+                NonPlayerCharacter jambi = hit.collider.GetComponent<NonPlayerCharacter>();
+                if (jambi != null)
                 {
-                    character.DisplayDialog();
+                    if (IsQuestComplete())
+                    {
+                        jambi.ChangeDialog();
+                    }
+                    jambi.DisplayDialog();
                 }
             }
         }
@@ -113,6 +145,7 @@ public class RubyController : MonoBehaviour
             if (isInvincible)
                 return;
 
+            PlaySound(audioclip[0]);
             animator.SetTrigger("Hit");
             isInvincible = true;
             invincibleTimer = timeInvincible;
@@ -135,6 +168,7 @@ public class RubyController : MonoBehaviour
         projectile.Launch(lookDirection, 300);
 
         animator.SetTrigger("Launch");
+        PlaySound(audioclip[2]);
     }
     #endregion
 

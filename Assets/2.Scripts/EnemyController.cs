@@ -6,6 +6,9 @@ public class EnemyController : MonoBehaviour
 {
     #region public
     public ParticleSystem pts;
+    public AudioClip fixsd;
+    public AudioClip walk;
+    public AudioSource audiosc;
 
     public float speed;
     public bool vertical;
@@ -19,6 +22,8 @@ public class EnemyController : MonoBehaviour
     int direction = 1;
     Animator animator;
     bool broken;
+
+    int rand;
     #endregion
 
     // Start is called before the first frame update
@@ -26,6 +31,7 @@ public class EnemyController : MonoBehaviour
     {
         rigi2D = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        audiosc.PlayOneShot(walk);
         timer = changeTime;
         broken = true;
     }
@@ -58,7 +64,6 @@ public class EnemyController : MonoBehaviour
             position.x += Time.deltaTime * speed * direction;
             animator.SetFloat("Move X", direction);
             animator.SetFloat("Move Y", 0);
-            
         }
 
         rigi2D.MovePosition(position);
@@ -78,11 +83,21 @@ public class EnemyController : MonoBehaviour
     //로봇 고쳐지는 애니메이션
     public void Fix()
     {
+        audiosc.Stop();
+        //audiosc.PlayOneShot(fixsd);
         broken = false;
         rigi2D.simulated = false;
         Instantiate(fixedEffect, rigi2D.position + Vector2.up * 0.5f, Quaternion.identity);
         //pts.Stop();
         Destroy(pts.gameObject);
         animator.SetTrigger("Fixed");
+
+        GameObject go = GameObject.FindWithTag("RUBY");
+        if (go != null)
+        {
+            RubyController ruby = go.GetComponent<RubyController>();
+            ruby.PlaySound(fixsd);
+            ruby.TellMeFixed();
+        }
     }
 }

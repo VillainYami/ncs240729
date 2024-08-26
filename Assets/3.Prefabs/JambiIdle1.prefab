@@ -232,7 +232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1451568515
 RectTransform:
   m_ObjectHideFlags: 0
@@ -464,3 +464,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayTime: 4
   dialogBox: {fileID: 1451568514}
+  talkBox: {fileID: 0}
+  talk: {fileID: 1011457987}
