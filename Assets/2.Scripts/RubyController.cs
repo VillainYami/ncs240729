@@ -19,26 +19,32 @@ public class RubyController : MonoBehaviour
     public GameObject projectilePrefab;
     public GameObject hitEffect;
     public float timeInvincible = 2.0f;
-    public float speed = 23.0f;
+
     #endregion
 
     #region private
-
+#if (UNITY_EDITOR && UNITY_ANDROID)
+    float speed = 23.0f;
+#else
+    float speed = 3.0f;
+#endif
     int currentHealth;
     bool isInvincible;
     float invincibleTimer;
 
     Rigidbody2D rigi2D;
     Animator animator;
+    PlayerMove moves;
     Vector2 lookDirection = new Vector2(1, 0);
 
-    
     int fixedRobot;
+    
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        moves = GetComponent<PlayerMove>();
         rigi2D = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         animator = GetComponent<Animator>();
@@ -49,13 +55,15 @@ public class RubyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float atktime = Time.deltaTime;
-
         #region 움직이는 스크립팅(애니메이션 포함)
+#if (!UNITY_ANDROID)
         float hori = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
 
         Vector2 move = new Vector2(hori, vert);
+#else
+        Vector2 move = moves.MoveInput.normalized;
+#endif
         if (!Mathf.Approximately(move.x, 0.0f) ||
             !Mathf.Approximately(move.y, 0.0f))
         {
@@ -78,17 +86,20 @@ public class RubyController : MonoBehaviour
                 isInvincible = false;
         }
         #endregion
-        #region 공격
+
         if (Input.GetKeyDown(KeyCode.C))
         {
             Launch();
         }
-        #endregion
 
-        NPCCheck();
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Talk();
+        }
+
     }
 
-    #region 퀘스트관련
+#region 퀘스트관련
     public void TellMeFixed()
     {
         fixedRobot++;
@@ -105,9 +116,9 @@ public class RubyController : MonoBehaviour
         }
         return val;
     }
-    #endregion
+#endregion
 
-    #region 오디오
+#region 오디오
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
@@ -115,25 +126,23 @@ public class RubyController : MonoBehaviour
     #endregion
 
     #region NPC Check
-    void NPCCheck()
+    public void Talk()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        RaycastHit2D hit = Physics2D.Raycast(
+            rigi2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
+        if (hit.collider != null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(
-                rigi2D.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
-            if (hit.collider != null)
+            NonPlayerCharacter jambi = hit.collider.GetComponent<NonPlayerCharacter>();
+            if (jambi != null)
             {
-                NonPlayerCharacter jambi = hit.collider.GetComponent<NonPlayerCharacter>();
-                if (jambi != null)
+                if (IsQuestComplete())
                 {
-                    if (IsQuestComplete())
-                    {
-                        jambi.ChangeDialog();
-                    }
-                    jambi.DisplayDialog();
+                    jambi.ChangeDialog();
                 }
+                jambi.DisplayDialog();
             }
         }
+
     }
     #endregion
 
@@ -155,10 +164,10 @@ public class RubyController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth/(float)maxHealth);
     }
-    #endregion
+#endregion
 
-    #region 공격
-    void Launch()
+#region 공격
+    public void Launch()
     {
         GameObject projectileObject = Instantiate(projectilePrefab,
             rigi2D.position + Vector2.up * 0.5f,
@@ -171,5 +180,4 @@ public class RubyController : MonoBehaviour
         PlaySound(audioclip[2]);
     }
     #endregion
-
 }

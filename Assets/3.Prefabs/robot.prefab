@@ -153,7 +153,7 @@ MonoBehaviour:
   fixsd: {fileID: 8300000, guid: e7fa1971a86d60945bb64585c0ac14d5, type: 3}
   walk: {fileID: 8300000, guid: 6bfbad8ffdf387d4e87e8fa07b62f7c1, type: 3}
   audiosc: {fileID: 2690398971320778206}
-  speed: 4
+  speed: 1
   vertical: 0
   changeTime: 5
   fixedEffect: {fileID: 2383062616750525234, guid: 4c0d169d6d6fd4344975bb29a4e83e7f, type: 3}

@@ -110,7 +110,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 3370646215834347966, guid: 9b885e4d8c3b3ed4b97e75973b8a4ea7, type: 3}
   hitEffect: {fileID: 8917544442702659016, guid: 6fe4e119ea157504c9d4fe0a7fde54e6, type: 3}
   timeInvincible: 2
-  speed: 23
+  speed: 3
 --- !u!50 &340974118871300981
 Rigidbody2D:
   serializedVersion: 4
