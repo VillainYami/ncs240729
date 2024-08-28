@@ -15,9 +15,11 @@ GameObject:
   - component: {fileID: -2611497692493340729}
   - component: {fileID: 7692107495591966947}
   - component: {fileID: 1245623377}
+  - component: {fileID: 720686334}
+  - component: {fileID: 720686340}
   m_Layer: 6
   m_Name: Ruby
-  m_TagString: Untagged
+  m_TagString: RUBY
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,11 +108,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9b1bb1f450b7d444fa4a8019d13519a7, type: 3}
   - {fileID: 8300000, guid: a20c77ecd5de9eb4a98731b45ad84c3e, type: 3}
   - {fileID: 8300000, guid: b2edfd40873655249ba0e01a5cf705be, type: 3}
+  - {fileID: 8300000, guid: f987bfc0b774d3f4e82dc47e91f78584, type: 3}
   audioSource: {fileID: 0}
   projectilePrefab: {fileID: 3370646215834347966, guid: 9b885e4d8c3b3ed4b97e75973b8a4ea7, type: 3}
   hitEffect: {fileID: 8917544442702659016, guid: 6fe4e119ea157504c9d4fe0a7fde54e6, type: 3}
   timeInvincible: 2
-  speed: 3
 --- !u!50 &340974118871300981
 Rigidbody2D:
   serializedVersion: 4
@@ -275,3 +277,46 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &720686334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928631805974722316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 8d70cdefc262d3d4098ca6431427c32b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &720686340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7928631805974722316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baed1facb54a3e84f817d6a53e1effb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveInput: {x: 0, y: 0}

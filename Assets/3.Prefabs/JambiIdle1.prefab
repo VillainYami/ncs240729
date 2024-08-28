@@ -465,4 +465,8 @@ MonoBehaviour:
   displayTime: 4
   dialogBox: {fileID: 1451568514}
   talkBox: {fileID: 0}
+  bulletUI: {fileID: 0}
+  moveUI: {fileID: 0}
+  talkUI: {fileID: 0}
   talk: {fileID: 1011457987}
+  talkpanel: {fileID: 0}

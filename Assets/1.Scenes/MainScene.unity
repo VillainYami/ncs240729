@@ -12564,11 +12564,6 @@ Transform:
   m_Father: {fileID: 1060180073}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &311926353 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7928631805974722316, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
-  m_PrefabInstance: {fileID: 7928631806283260682}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &358608771
 GameObject:
   m_ObjectHideFlags: 0
@@ -13351,55 +13346,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7928631805974722307, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
   m_PrefabInstance: {fileID: 7928631806283260682}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 311926353}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3194575041501c43825079377ddc029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &720686334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 311926353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 8d70cdefc262d3d4098ca6431427c32b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
---- !u!114 &720686340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 311926353}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baed1facb54a3e84f817d6a53e1effb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveInput: {x: 0, y: 0}
 --- !u!1001 &859460649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15464,7 +15416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 931770745275857909, guid: 56ffd96522f0d54459c9ab4c4392f1d3, type: 3}
       propertyPath: m_Name
-      value: JambiIdle1
+      value: Jambi
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56ffd96522f0d54459c9ab4c4392f1d3, type: 3}
@@ -15677,6 +15629,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 720686334, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 7928631805974722306, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -15721,25 +15677,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7928631805974722307, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7928631805974722307, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
-      propertyPath: audioclip.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7928631805974722307, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
-      propertyPath: audioclip.Array.data[3]
-      value: 
-      objectReference: {fileID: 8300000, guid: f987bfc0b774d3f4e82dc47e91f78584, type: 3}
     - target: {fileID: 7928631805974722316, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
       propertyPath: m_Name
       value: Ruby
-      objectReference: {fileID: 0}
-    - target: {fileID: 7928631805974722316, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
-      propertyPath: m_TagString
-      value: RUBY
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5f7e266ccb68e24b84d584ad9d41afd, type: 3}
